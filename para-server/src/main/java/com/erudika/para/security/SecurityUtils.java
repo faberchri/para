@@ -416,10 +416,12 @@ public final class SecurityUtils {
 	 * @return true if the signature is valid
 	 */
 	public static boolean isValidSignature(HttpServletRequest incoming, String secretKey) {
+		logger.info("fachri - incoming: {}, secretKey {}", incoming, secretKey);
 		if (incoming == null || StringUtils.isBlank(secretKey)) {
 			return false;
 		}
 		String auth = incoming.getHeader(HttpHeaders.AUTHORIZATION);
+		logger.info("fachri - auth: {}", auth);
 		String givenSig = StringUtils.substringAfter(auth, "Signature=");
 		String sigHeaders = StringUtils.substringBetween(auth, "SignedHeaders=", ",");
 		String credential = StringUtils.substringBetween(auth, "Credential=", ",");
@@ -459,6 +461,8 @@ public final class SecurityUtils {
 			logger.error(null, ex);
 			entity = null;
 		}
+		
+		logger.info("fachri - httpMethod: {}, endpoint: {}, path: {}, headers: {}, params: {}, entity: {}, accessKey: {}, secretKey: {}", httpMethod, endpoint, path, headers, params, entity, accessKey, secretKey);
 
 		Signer signer = new Signer();
 		Map<String, String> sig = signer.sign(httpMethod, endpoint, path, headers, params, entity, accessKey, secretKey);
