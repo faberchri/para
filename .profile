@@ -26,11 +26,7 @@ es_path="$(echo $es_url | grep / | cut -d/ -f2-)"
 
 export para_search="ElasticSearch"
 export para_es_basic_auth_login=$es_user
-echo "fachri profile para_es_basic_auth_login: $para_es_basic_auth_login"
 export para_es_basic_auth_password=$es_pw
-echo "fachri profile para_es_basic_auth_password: $para_es_basic_auth_password"
 export para_es_restclient_host=$es_host
-echo "fachri profile para_es_restclient_host: $para_es_restclient_host"
 export para_es_restclient_port=$es_port
-echo "fachri profile para_es_restclient_port: $para_es_restclient_port"
 
