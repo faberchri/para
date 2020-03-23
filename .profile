@@ -14,3 +14,23 @@ export para_sql_url="postgresql://$db_host:$db_port/$db_path"
 export para_sql_user=$db_user
 export para_sql_password=$db_pw
 
+es_proto="$(echo $BONSAI_URL | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+es_url=$(echo $BONSAI_URL | sed -e s,$es_proto,,g)
+es_user_pw="$(echo $es_url | grep @ | cut -d@ -f1)"
+es_user="$(echo $es_user_pw | cut -d: -f1)"
+es_pw="$(echo $es_user_pw | cut -d: -f2)"
+es_hostport=$(echo $es_url | sed -e s,$es_user_pw@,,g | cut -d/ -f1)
+es_host="$(echo $es_hostport | sed -e 's,:.*,,g')"
+es_port="$(echo $es_hostport | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
+es_path="$(echo $es_url | grep / | cut -d/ -f2-)"
+
+export para_search="ElasticSearch"
+export para_es_basic_auth_login=$es_user
+echo "fachri profile para_es_basic_auth_login: $para_es_basic_auth_login"
+export para_es_basic_auth_password=$es_pw
+echo "fachri profile para_es_basic_auth_password: $para_es_basic_auth_password"
+export para_es_restclient_host=$es_host
+echo "fachri profile para_es_restclient_host: $para_es_restclient_host"
+export para_es_restclient_port=$es_port
+echo "fachri profile para_es_restclient_port: $para_es_restclient_port"
+
