@@ -441,7 +441,7 @@ public final class SecurityUtils {
 			if (headersUsed.contains(head)) {
 				String headerValue = incoming.getHeader(head);
 				if (head.equals("host")) {
-					headerValue = StringUtils.substringBefore(headerValue, ":") + "/";
+					headerValue = StringUtils.substringBefore(headerValue, ":");
 				}
 				headers.put(head, headerValue);
 			}
