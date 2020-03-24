@@ -439,7 +439,11 @@ public final class SecurityUtils {
 		for (Enumeration<String> e = incoming.getHeaderNames(); e.hasMoreElements();) {
 			String head = e.nextElement().toLowerCase();
 			if (headersUsed.contains(head)) {
-				headers.put(head, incoming.getHeader(head));
+				String headerValue = incoming.getHeader(head);
+				if (head.equals("host")) {
+					headerValue = StringUtils.substringBefore(":");
+				}
+				headers.put(head, headerValue);
 			}
 		}
 
