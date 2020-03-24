@@ -117,9 +117,6 @@ public final class Signer extends BaseAws4Signer {
 		if (override != null) {
 			signerParams.signingClockOverride(override);
 		}
-		logger.info("fachri - SIGNING - request-URI: {}, request-headers: {}, request-protocol: {}, request-host: {}, request-port: {}, request-encodedPath: {}, request-rawQueryParameters: {}, request-method: {}, accessKey: {}, secretKey: {}, override: {}",
-			request.getUri(), request.headers(), request.protocol(), request.host(), request.port(), request.encodedPath(), request.rawQueryParameters(), request.method(), accessKey, secretKey, override);
-
 		return super.sign(request, signerParams.build());
 	}
 
